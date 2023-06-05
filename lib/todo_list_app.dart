@@ -14,7 +14,7 @@ class _ToDoListAppState extends State<ToDoListApp> {
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Elephant'),
+          title: const Text('ToDo List'),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {},
