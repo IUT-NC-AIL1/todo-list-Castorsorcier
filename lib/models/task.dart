@@ -1,8 +1,8 @@
 class Task{
-  int id=0;
+  int? id=0;
   String content='';
   bool completed=false;
-  String title='';
+  String? title='';
 
-  Task({id, required content, required completed, title});
+  Task({this.id, required this.content, required this.completed, this.title});
 }

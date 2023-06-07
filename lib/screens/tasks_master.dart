@@ -1,24 +1,34 @@
-import 'package:flutter/cupertino.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list/screens/tasks_details.dart';
+import 'package:todo_list/screens/tasks_preview.dart';
 
 import '../models/task.dart';
 
-class TasksMaster extends StatefulWidget{
+class TasksMaster extends StatefulWidget {
+
   const TasksMaster({Key? key}) : super(key: key);
 
-
+  @override
   State<TasksMaster> createState() => _TasksMasterState();
 }
 
-class _TasksMasterState extends State<TasksMaster>{
+class _TasksMasterState extends State<TasksMaster> {
 
-  Future<List<Task>> _fetchTasks() async{
-    List<Task> res=[];
-    for(int i=0;i<100;i++){
+  void completeTask(task){
+    setState(() {
+      task.completed=!task.completed;
+    });
+  }
+
+  Future<List<Task>> _fetchTasks() async {
+    List<Task> res = [];
+    for (int i = 0; i < 100; i++) {
       res.add(Task(
+        id: i,
         content: faker.lorem.sentence(),
         completed: random.boolean(),
+        title: faker.lorem.sentence(),
       ));
     }
 
@@ -33,6 +43,7 @@ class _TasksMasterState extends State<TasksMaster>{
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
+            padding: const EdgeInsets.all(12),
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return TaskPreview(
@@ -41,23 +52,10 @@ class _TasksMasterState extends State<TasksMaster>{
             },
           );
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       },
     );
   }
 }
 
-class TaskPreview extends StatelessWidget{
-  Task task=Task(content: '', completed: '');
-  TaskPreview({Key? key, required task}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return ListTile(
-      title: Text(task.title),
-      subtitle: Text(task.content),
-      tileColor: task.completed?Color.fromRGBO(0, 255, 0, 1):Color.fromRGBO(255, 0, 0, 1),
-    );
-  }
-}
