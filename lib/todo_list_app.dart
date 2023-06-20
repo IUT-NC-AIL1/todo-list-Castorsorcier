@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/task.dart';
 import 'package:todo_list/screens/task_form.dart';
-import 'package:todo_list/screens/tasks_details.dart';
 import 'package:todo_list/screens/tasks_master.dart';
-import 'package:todo_list/screens/tasks_preview.dart';
 
 class ToDoListApp extends StatefulWidget {
   const ToDoListApp({Key? key}) : super(key: key);
@@ -27,9 +25,9 @@ class _ToDoListAppState extends State<ToDoListApp> {
               body: const TasksMaster(),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  Navigator.of(context).push(
+                  Navigator.pushReplacement(context,
                     MaterialPageRoute(
-                        builder: (context) => const TaskForm()),
+                        builder: (context) => TaskForm(task: Task(content: 'Contenu', completed: false),)),
                   );
                 },
                 child: const Icon(Icons.add),

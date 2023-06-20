@@ -23,19 +23,21 @@ class TaskPreview extends StatelessWidget {
         ),
       ),
       subtitle: Text(task?.content ?? ''),
-      leading: Icon(
-          task!.completed?Icons.check:Icons.warning
-      ),
-      hoverColor: task!.completed
-          ? const Color.fromRGBO(67, 180, 67, 0.8)
-          : const Color.fromRGBO(227, 54, 54, 0.8),
-      onTap: ()
-      {
-        Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (context) => TasksDetails(task: task)
+      leading: task!.completed
+          ? Icon(
+              Icons.check,
+              color: Colors.green,
             )
-        );
+          : Icon(
+              Icons.warning,
+              color: Colors.red,
+            ),
+      hoverColor: task!.completed
+          ? const Color.fromRGBO(105, 240, 174, 1.0)
+          : const Color.fromRGBO(255, 82, 82, 1.0),
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => TasksDetails(task: task)));
       },
     );
   }

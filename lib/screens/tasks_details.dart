@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/providers/tasks_provider.dart';
 
 import '../models/task.dart';
+import '../todo_list_app.dart';
 
 class TasksDetails extends StatefulWidget {
   final Task? task;
@@ -47,6 +49,11 @@ class _TasksDetails extends State<TasksDetails> {
                             }
                             return null;
                           },
+                          onChanged: (value){
+                            setState(() {
+                              widget.task!.title=value;
+                            });
+                          },
                         ),
                       ),
                       SizedBox(
@@ -62,19 +69,28 @@ class _TasksDetails extends State<TasksDetails> {
                             }
                             return null;
                           },
+                          onChanged: (value){
+                            setState(() {
+                              widget.task!.content=value;
+                            });
+                          },
                         ),
                       ),
                       FormField(builder: (context){
-                        return Checkbox(value: widget.task!.completed, onChanged: (_){
-                          setState(() {
-                            widget.task!.completed=!widget.task!.completed;
-                          });
+                        return Checkbox(value: widget.task!.completed,
+                            onChanged: (value) {
+                              setState(() {
+                                widget.task!.completed = value!;
+                              });
                         });
                       }),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
+                            TasksProvider().modifyTask(widget.task!);
+                            Navigator.pushReplacement(context, MaterialPageRoute(
+                                builder: (context) =>
+                                const ToDoListApp()));
                           }
                         },
                         child: const Icon(
