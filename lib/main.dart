@@ -6,8 +6,9 @@ import 'todo_list_app.dart';
 
 void main() async{
 
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load(fileName: ".env");
-  WidgetsFlutterBinding.ensureInitialized();
   await Supabase.initialize(url: dotenv.env['SUPABASE_URL']!, anonKey: dotenv.env['SUPABASE_API_KEY']!);
   runApp(ToDoListApp());
 }
