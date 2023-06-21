@@ -39,8 +39,8 @@ class _TasksDetails extends State<TasksDetails> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3 * 2,
                         child: TextFormField(
+                          initialValue: widget.task!.title!,
                           decoration: InputDecoration(
-                              labelText: widget.task!.title!,
                               helperText: 'Titre',
                               labelStyle: const TextStyle(fontWeight: FontWeight.bold)),
                           validator: (String? value) {
@@ -59,8 +59,8 @@ class _TasksDetails extends State<TasksDetails> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3 * 2,
                         child: TextFormField(
+                          initialValue: widget.task!.content!,
                           decoration: InputDecoration(
-                            labelText: widget.task!.content,
                             helperText: 'Contenu',
                           ),
                           validator: (String? value) {
@@ -88,7 +88,7 @@ class _TasksDetails extends State<TasksDetails> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             TasksProvider().modifyTask(widget.task!);
-                            Navigator.pushReplacement(context, MaterialPageRoute(
+                            Navigator.push(context, MaterialPageRoute(
                                 builder: (context) =>
                                 const ToDoListApp()));
                           }
