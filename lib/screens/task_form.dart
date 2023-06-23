@@ -18,93 +18,102 @@ class _TaskForm extends State<TaskForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('ToDo List'),
-        ),
-        body: Center(
-          child: Form(
-              key: _formKey,
-              child: Container(
-                //width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(12),
-                child: Card(
-                  elevation: 5,
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      direction: Axis.vertical,
-                      spacing: 12,
-                      children: [
-                        const Text('Ajouter une nouvelle tâche'),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 3 * 2,
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                                helperText: 'Titre',
-                                labelStyle:
-                                TextStyle(fontWeight: FontWeight.bold)),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Insérez un titre';
-                              }
-                              return null;
-                            },
-                            onChanged: (value){
-                              setState(() {
-                                widget.task!.title=value;
-                              });
-                            },
+    return Navigator(
+        onGenerateRoute: (settings) {
+          return MaterialPageRoute(
+              builder: (context) =>
+                  Center(
+                      child:Scaffold(
+                          appBar: AppBar(
+                            title: const Text('ToDo List'),
                           ),
-                        ),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width / 3 * 2,
-                          child: TextFormField(
-                            decoration: const InputDecoration(
-                              helperText: 'Contenu',
-                            ),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Insérez un contenu';
-                              }
-                              return null;
-                            },
-                            onChanged: (value){
-                              setState(() {
-                                widget.task!.content=value;
-                              });
-                            },
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate())  {
+                          body: Center(
+                            child: Form(
+                                key: _formKey,
+                                child: Container(
+                                  //width: MediaQuery.of(context).size.width,
+                                  padding: const EdgeInsets.all(12),
+                                  child: Card(
+                                    elevation: 5,
+                                    child: Container(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Wrap(
+                                        crossAxisAlignment: WrapCrossAlignment.center,
+                                        direction: Axis.vertical,
+                                        spacing: 12,
+                                        children: [
+                                          const Text('Ajouter une nouvelle tâche'),
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width / 3 * 2,
+                                            child: TextFormField(
+                                              decoration: const InputDecoration(
+                                                  helperText: 'Titre',
+                                                  labelStyle:
+                                                  TextStyle(fontWeight: FontWeight.bold)),
+                                              validator: (String? value) {
+                                                if (value == null || value.isEmpty) {
+                                                  return 'Insérez un titre';
+                                                }
+                                                return null;
+                                              },
+                                              onChanged: (value){
+                                                setState(() {
+                                                  widget.task!.title=value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context).size.width / 3 * 2,
+                                            child: TextFormField(
+                                              decoration: const InputDecoration(
+                                                helperText: 'Contenu',
+                                              ),
+                                              validator: (String? value) {
+                                                if (value == null || value.isEmpty) {
+                                                  return 'Insérez un contenu';
+                                                }
+                                                return null;
+                                              },
+                                              onChanged: (value){
+                                                setState(() {
+                                                  widget.task!.content=value;
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              if (_formKey.currentState!.validate())  {
 
-                              TasksProvider().addTask(widget.task!);
-                              Navigator.pushReplacement(context, MaterialPageRoute(
-                                  builder: (context) =>
-                                  const ToDoListApp()));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'La tâche a été ajoutée',
-                                    style: TextStyle(fontSize: 16.0),
+                                                TasksProvider().addTask(widget.task!);
+                                                Navigator.push(context, MaterialPageRoute(
+                                                    builder: (context) =>
+                                                    const ToDoListApp()));
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  const SnackBar(
+                                                    content: Text(
+                                                      'La tâche a été ajoutée',
+                                                      style: TextStyle(fontSize: 16.0),
+                                                    ),
+                                                    backgroundColor: Colors.orange,
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            child: const Icon(
+                                              Icons.save,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  backgroundColor: Colors.orange,
-                                ),
-                              );
-                            }
-                          },
-                          child: const Icon(
-                            Icons.save,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )),
-        ));
+                                )),
+                          ))
+                  )
+          );
+        }
+    );
   }
 }

@@ -84,19 +84,71 @@ class _TasksDetails extends State<TasksDetails> {
                               });
                         });
                       }),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            TasksProvider().modifyTask(widget.task!);
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) =>
-                                const ToDoListApp()));
-                          }
-                        },
-                        child: const Icon(
-                          Icons.save,
-                        ),
-                      ),
+                      Wrap(
+                        spacing: 20,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                TasksProvider().modifyTask(widget.task!);
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) =>
+                                    const ToDoListApp()));
+                              }
+                            },
+                            child: const Icon(
+                              Icons.save,
+                            ),
+                          ),
+                          ElevatedButton(
+                            child: const Icon(
+                              Icons.delete,
+                            ),
+                            onPressed: () => showDialog<String>(
+                              context: context,
+                              builder: (context) {
+                              return AlertDialog(
+                                content: Text(
+                                  'Confirmez-vous la suppression de cette tâche ?'
+                                ),
+                                actions: [
+                                  ColoredBox(
+                                      color: Colors.green,
+                                    child: TextButton(
+                                        child: Text(
+                                          'Oui',
+                                          style: TextStyle(
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                        onPressed: ()async{
+                                          TasksProvider().deleteTask(widget.task!);
+                                          await Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) =>
+                                              const ToDoListApp()));
+                                        },
+                                    )
+                                  ),
+                                  ColoredBox(
+                                      color: Colors.red,
+                                    child: TextButton(
+                                        child: Text(
+                                            'Non',
+                                          style: TextStyle(
+                                            color: Colors.white
+                                          ),
+                                        ),
+                                        onPressed: (){
+                                          Navigator.pop(context);
+                                        }),
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+
+                          )],
+                      )
                     ],
                   ),
                 ),

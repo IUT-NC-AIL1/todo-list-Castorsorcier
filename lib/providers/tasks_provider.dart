@@ -42,6 +42,11 @@ class TasksProvider extends ChangeNotifier {
     }).eq('id', task.id);
   }
 
+  Future<void> deleteTask(Task task) async {
+    final supabase = Supabase.instance.client;
+    final response = await supabase.from('Task').delete().eq('id', task.id);
+  }
+
   static Future<void> initialize() async {
     await dotenv.load(fileName: ".env");
     String SUPABASE_URL = dotenv.get("SUPABASE_URL");
