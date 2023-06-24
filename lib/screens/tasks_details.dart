@@ -42,16 +42,17 @@ class _TasksDetails extends State<TasksDetails> {
                           initialValue: widget.task!.title!,
                           decoration: InputDecoration(
                               helperText: 'Titre',
-                              labelStyle: const TextStyle(fontWeight: FontWeight.bold)),
+                              labelStyle:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
                               return 'Insérez un titre';
                             }
                             return null;
                           },
-                          onChanged: (value){
+                          onChanged: (value) {
                             setState(() {
-                              widget.task!.title=value;
+                              widget.task!.title = value;
                             });
                           },
                         ),
@@ -69,20 +70,21 @@ class _TasksDetails extends State<TasksDetails> {
                             }
                             return null;
                           },
-                          onChanged: (value){
+                          onChanged: (value) {
                             setState(() {
-                              widget.task!.content=value;
+                              widget.task!.content = value;
                             });
                           },
                         ),
                       ),
-                      FormField(builder: (context){
-                        return Checkbox(value: widget.task!.completed,
+                      FormField(builder: (context) {
+                        return Checkbox(
+                            value: widget.task!.completed,
                             onChanged: (value) {
                               setState(() {
                                 widget.task!.completed = value!;
                               });
-                        });
+                            });
                       }),
                       Wrap(
                         spacing: 20,
@@ -91,9 +93,12 @@ class _TasksDetails extends State<TasksDetails> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 await TasksProvider().modifyTask(widget.task!);
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) =>
-                                    const ToDoListApp()));
+                                Navigator.pop(context);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ToDoListApp()));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -116,56 +121,59 @@ class _TasksDetails extends State<TasksDetails> {
                             onPressed: () => showDialog<String>(
                               context: context,
                               builder: (context) {
-                              return AlertDialog(
-                                content: Text(
-                                  'Confirmez-vous la suppression de cette tâche ?'
-                                ),
-                                actions: [
-                                  ColoredBox(
-                                      color: Colors.green,
-                                    child: TextButton(
-                                        child: Text(
-                                          'Oui',
-                                          style: TextStyle(
-                                            color: Colors.white
+                                return AlertDialog(
+                                  content: Text(
+                                      'Confirmez-vous la suppression de cette tâche ?'),
+                                  actions: [
+                                    ColoredBox(
+                                        color: Colors.green,
+                                        child: TextButton(
+                                          child: Text(
+                                            'Oui',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                        ),
-                                        onPressed: ()async{
-                                          await TasksProvider().deleteTask(widget.task!);
-                                          Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) =>
-                                              const ToDoListApp()));
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'La tâche a été supprimée',
-                                                style: TextStyle(fontSize: 16.0),
+                                          onPressed: () async {
+                                            await TasksProvider()
+                                                .deleteTask(widget.task!);
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const ToDoListApp()));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                  'La tâche a été supprimée',
+                                                  style:
+                                                      TextStyle(fontSize: 16.0),
+                                                ),
+                                                backgroundColor: Colors.orange,
                                               ),
-                                              backgroundColor: Colors.orange,
-                                            ),
-                                          );
-                                        },
-                                    )
-                                  ),
-                                  ColoredBox(
+                                            );
+                                          },
+                                        )),
+                                    ColoredBox(
                                       color: Colors.red,
-                                    child: TextButton(
-                                        child: Text(
+                                      child: TextButton(
+                                          child: Text(
                                             'Non',
-                                          style: TextStyle(
-                                            color: Colors.white
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                        ),
-                                        onPressed: (){
-                                          Navigator.pop(context);
-                                        }),
-                                  )
-                                ],
-                              );
-                            },
-                          ),
-
-                          )],
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          }),
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                          )
+                        ],
                       )
                     ],
                   ),

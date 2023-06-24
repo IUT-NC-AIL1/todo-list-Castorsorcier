@@ -87,7 +87,7 @@ class _TaskForm extends State<TaskForm> {
                                               if (_formKey.currentState!.validate())  {
 
                                                 await TasksProvider().addTask(widget.task!);
-                                                Navigator.push(context, MaterialPageRoute(
+                                                Navigator.pushReplacement(context, MaterialPageRoute(
                                                     builder: (context) =>
                                                     const ToDoListApp()));
                                                 ScaffoldMessenger.of(context).showSnackBar(

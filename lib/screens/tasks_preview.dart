@@ -36,7 +36,7 @@ class TaskPreview extends StatelessWidget {
           ? const Color.fromRGBO(105, 240, 174, 1.0)
           : const Color.fromRGBO(255, 82, 82, 1.0),
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.push(context,
             MaterialPageRoute(builder: (context) => TasksDetails(task: task)));
       },
     );
