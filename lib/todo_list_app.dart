@@ -16,6 +16,7 @@ class _ToDoListAppState extends State<ToDoListApp> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ToDo List'),
+
       ),
       body: const TasksMaster(),
       floatingActionButton: FloatingActionButton(
