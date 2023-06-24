@@ -13,28 +13,19 @@ class ToDoListApp extends StatefulWidget {
 class _ToDoListAppState extends State<ToDoListApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Material App',
-      home: Navigator(
-        onGenerateRoute: (settings) {
-          return MaterialPageRoute(
-            builder: (context) => Scaffold(
-              appBar: AppBar(
-                title: const Text('ToDo List'),
-              ),
-              body: const TasksMaster(),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushReplacement(context,
-                    MaterialPageRoute(
-                        builder: (context) => TaskForm(task: Task(content: 'Contenu', completed: false),)),
-                  );
-                },
-                child: const Icon(Icons.add),
-              ),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ToDo List'),
+      ),
+      body: const TasksMaster(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context) => TaskForm(task: Task(content: 'Contenu', completed: false),)),
           );
         },
+        child: const Icon(Icons.add),
       ),
     );
   }

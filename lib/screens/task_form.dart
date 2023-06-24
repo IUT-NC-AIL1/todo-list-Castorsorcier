@@ -86,7 +86,7 @@ class _TaskForm extends State<TaskForm> {
                                             onPressed: () async {
                                               if (_formKey.currentState!.validate())  {
 
-                                                TasksProvider().addTask(widget.task!);
+                                                await TasksProvider().addTask(widget.task!);
                                                 Navigator.push(context, MaterialPageRoute(
                                                     builder: (context) =>
                                                     const ToDoListApp()));

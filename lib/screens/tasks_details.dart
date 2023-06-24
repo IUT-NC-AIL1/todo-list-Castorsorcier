@@ -90,10 +90,19 @@ class _TasksDetails extends State<TasksDetails> {
                           ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                TasksProvider().modifyTask(widget.task!);
+                                await TasksProvider().modifyTask(widget.task!);
                                 Navigator.push(context, MaterialPageRoute(
                                     builder: (context) =>
                                     const ToDoListApp()));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'La tâche a été modifiée',
+                                      style: TextStyle(fontSize: 16.0),
+                                    ),
+                                    backgroundColor: Colors.orange,
+                                  ),
+                                );
                               }
                             },
                             child: const Icon(
@@ -122,10 +131,19 @@ class _TasksDetails extends State<TasksDetails> {
                                           ),
                                         ),
                                         onPressed: ()async{
-                                          TasksProvider().deleteTask(widget.task!);
-                                          await Navigator.push(context, MaterialPageRoute(
+                                          await TasksProvider().deleteTask(widget.task!);
+                                          Navigator.push(context, MaterialPageRoute(
                                               builder: (context) =>
                                               const ToDoListApp()));
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                'La tâche a été supprimée',
+                                                style: TextStyle(fontSize: 16.0),
+                                              ),
+                                              backgroundColor: Colors.orange,
+                                            ),
+                                          );
                                         },
                                     )
                                   ),
