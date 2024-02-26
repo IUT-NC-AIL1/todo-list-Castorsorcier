@@ -6,9 +6,13 @@ import '../models/task.dart';
 class TasksProvider extends ChangeNotifier {
   List<Task> res = [];
 
+  static String sortedAttribute='id';
+  static bool isInverted=true;
+
   Future<List<Task>> getTasks() async {
     final supabase = Supabase.instance.client;
-    final response = await supabase.from("Task").select().execute();
+    final response;
+    response = await supabase.from("Task").select().order(sortedAttribute, ascending: isInverted).execute();
     final tasks = response.data as List<dynamic>;
     List<Task> taskList = [];
     for (var taskData in tasks) {

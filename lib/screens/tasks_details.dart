@@ -60,7 +60,7 @@ class _TasksDetails extends State<TasksDetails> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 3 * 2,
                         child: TextFormField(
-                          initialValue: widget.task!.content!,
+                          initialValue: widget.task!.content,
                           decoration: InputDecoration(
                             helperText: 'Contenu',
                           ),

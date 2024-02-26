@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_list/providers/tasks_provider.dart';
 import 'package:todo_list/screens/tasks_preview.dart';
